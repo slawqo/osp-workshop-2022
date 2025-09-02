@@ -1,0 +1,4 @@
+Host *
+    User nova
+    IdentityFile /var/lib/nova/.ssh/ssh-privatekey
+    StrictHostKeyChecking no

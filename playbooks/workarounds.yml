@@ -2,3 +2,8 @@
   hosts: "{{ compute_group_name }}"
   roles:
     - fixer
+
+- name: Fix SSH between compute nodes
+  hosts: "{{ compute_group_name }}"
+  roles:
+    - nova_migration_fixer

@@ -1,0 +1,9 @@
+---
+- name: Copy SSH config file
+  become: true
+  ansible.builtin.copy:
+    src: ssh_config
+    dest: "{{ nova_migration_fixer_nova_ssh_config_path }}"
+    owner: nova
+    group: nova
+    mode: '0600'
