@@ -29,9 +29,9 @@ E_SCENARIO=3
 #               valid values are: "podified" and "tripleo"
 INSTALLER="podified"
 
-function workaround_config_drive() {
+function apply_workarounds() {
        echo -e "DEBUG: in execute_workarounds" >> /tmp/log
-       ansible-playbook -i $INVENTORY_FILE /home/student/osp_training/scenarios_repo/playbooks/workaround_config_drive.yml -e compute_group_name=$compute_hosts_group_name -e installer=podified >> /tmp/ansible_scenario_output.txt
+       ansible-playbook -i $INVENTORY_FILE /home/student/osp_training/scenarios_repo/playbooks/workarounds.yml -t fix_config_drive,fix_vms_migration -e compute_group_name=$compute_hosts_group_name -e installer=podified >> /tmp/ansible_scenario_output.txt
 }
 
 function wait_for_ocp_to_be_ready() {
@@ -136,7 +136,7 @@ else
         wait_for_ocp_to_be_ready
 	    prepare_inventory_file
         configure_ssh_jump_host "lab@utility"
-	    workaround_config_drive
+	    apply_workarounds
         ensure_nic_mappings_are_set
 
         ANSIBLE_CMD="ansible-playbook \
